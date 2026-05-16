@@ -10,7 +10,7 @@ A full-stack collaborative notes application with AI-powered summaries, smart se
 [![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Firebase](https://img.shields.io/badge/Firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![OpenAI](https://img.shields.io/badge/GPT--5_Nano-412991?style=for-the-badge&logo=openai&logoColor=white)](https://github.com/marketplace/models)
+[![OpenAI](https://img.shields.io/badge/GPT--4.1_Nano-412991?style=for-the-badge&logo=openai&logoColor=white)](https://github.com/marketplace/models)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
@@ -30,7 +30,7 @@ A full-stack collaborative notes application with AI-powered summaries, smart se
 <td width="50%">
 
 ### 🤖 AI-Powered Intelligence
-- **Smart Summaries** — Generate concise note summaries with GPT-5 Nano
+- **Smart Summaries** — Generate concise note summaries with GPT-4.1 Nano
 - **Action Item Extraction** — Automatically pull out todos from your notes
 - **Title Suggestions** — Get AI-generated title recommendations
 
@@ -123,7 +123,7 @@ A full-stack collaborative notes application with AI-powered summaries, smart se
 | **Styling** | ![Tailwind](https://img.shields.io/badge/Tailwind_CSS_4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=fff) | Utility-first CSS + custom design tokens |
 | **Auth** | ![Firebase](https://img.shields.io/badge/Firebase_Auth-DD2C00?style=flat-square&logo=firebase&logoColor=fff) | Email/password authentication |
 | **Database** | ![Firestore](https://img.shields.io/badge/Cloud_Firestore-DD2C00?style=flat-square&logo=firebase&logoColor=fff) | NoSQL document database |
-| **AI** | ![OpenAI](https://img.shields.io/badge/GPT--5_Nano-412991?style=flat-square&logo=openai&logoColor=fff) | Note summarization via GitHub Models |
+| **AI** | ![OpenAI](https://img.shields.io/badge/GPT--4.1_Nano-412991?style=flat-square&logo=openai&logoColor=fff) | Note summarization via GitHub Models |
 | **Icons** | ![Lucide](https://img.shields.io/badge/Lucide_React-F56040?style=flat-square) | Beautiful, consistent icon set |
 | **Markdown** | ![Markdown](https://img.shields.io/badge/react--markdown-000?style=flat-square&logo=markdown) | Rich text note rendering |
 
@@ -156,7 +156,7 @@ A full-stack collaborative notes application with AI-powered summaries, smart se
                    ┌──────────────┐
                    │  GitHub      │
                    │  Models API  │
-                   │  (GPT-5     │
+                   │  (GPT-4.1 │
                    │   Nano)      │
                    └──────────────┘
 ```
@@ -199,7 +199,7 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
 
-# GitHub Models - GPT-5 Nano
+# GitHub Models - GPT-4.1 Nano
 GITHUB_TOKEN=your_github_personal_access_token
 ```
 
@@ -242,7 +242,7 @@ peblo/
 │       ├── firebase.js                       → Firebase client config
 │       ├── auth-context.js                   → Authentication context
 │       ├── notes-service.js                  → Firestore CRUD service
-│       └── ai.js                             → GPT-5 Nano integration
+│       └── ai.js                             → GPT-4.1 Nano integration
 ├── firestore.rules                           → Security rules
 ├── firestore.indexes.json                    → Composite indexes
 ├── firebase.json                             → Firebase config

@@ -13,7 +13,7 @@ function getClient() {
 }
 
 /**
- * Generate AI-powered insights from note content using GPT-5 Nano via GitHub Models.
+ * Generate AI-powered insights from note content using GPT-4.1 Nano via GitHub Models.
  * Returns summary, action items, and suggested title.
  */
 export async function generateNoteSummary(content, title = "") {
@@ -39,7 +39,7 @@ Respond ONLY in valid JSON format with this exact structure:
 
   try {
     const response = await getClient().chat.completions.create({
-      model: "gpt-5-nano",
+      model: "gpt-4.1-nano",
       messages: [
         {
           role: "system",
