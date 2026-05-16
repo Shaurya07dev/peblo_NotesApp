@@ -17,7 +17,7 @@ A full-stack collaborative notes application with AI-powered summaries, smart se
 ![Node](https://img.shields.io/badge/node-18%2B-brightgreen?style=flat-square&logo=nodedotjs&logoColor=white)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)
 
-[Live Demo →](#) · [Report Bug →](https://github.com/Shaurya07dev/peblo_NotesApp/issues) · [Request Feature →](https://github.com/Shaurya07dev/peblo_NotesApp/issues)
+[Live Demo →](https://peblo-two.vercel.app) · [Report Bug →](https://github.com/Shaurya07dev/peblo_NotesApp/issues) · [Request Feature →](https://github.com/Shaurya07dev/peblo_NotesApp/issues)
 
 </div>
 
