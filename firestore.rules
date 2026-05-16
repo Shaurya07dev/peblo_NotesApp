@@ -1,0 +1,25 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Users collection: only the user themselves can read/write
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Notes collection
+    match /notes/{noteId} {
+      // Owner can read, create, update, delete their own notes
+      allow read, update, delete: if request.auth != null 
+        && resource.data.userId == request.auth.uid;
+      
+      allow create: if request.auth != null 
+        && request.resource.data.userId == request.auth.uid;
+
+      // Anyone can read public notes (for sharing)
+      allow read: if resource.data.isPublic == true;
+    }
+  }
+}
