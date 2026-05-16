@@ -14,23 +14,23 @@ export default function SearchBar({
 }) {
   return (
     <div className="flex flex-col gap-3">
-      {/* Search input */}
-      <div className="relative">
-        <Search
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
-          style={{ color: "var(--color-text-light)" }}
-        />
+      {/* Search input — flex wrapper prevents icon overlap */}
+      <div className="search-wrapper">
+        <div className="search-icon">
+          <Search className="w-[18px] h-[18px]" />
+        </div>
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="input pl-11 pr-10"
+          className="search-input"
           placeholder="Search notes…"
         />
         {searchQuery && (
           <button
             onClick={() => onSearchChange("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 btn-icon p-1"
+            className="search-clear"
+            title="Clear search"
           >
             <X className="w-4 h-4" />
           </button>

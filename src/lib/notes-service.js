@@ -46,13 +46,23 @@ export async function createNote(userId) {
 export async function fetchNotes(userId, { searchQuery = "", filterTag = "", sortBy = "updatedAt" } = {}) {
   try {
     const notesRef = collection(db, NOTES_COLLECTION);
-    const q = query(
-      notesRef,
-      where("userId", "==", userId),
-      orderBy(sortBy, "desc")
-    );
+    let snapshot;
 
-    const snapshot = await getDocs(q);
+    try {
+      // Try the indexed query first (requires composite index)
+      const orderedQuery = query(
+        notesRef,
+        where("userId", "==", userId),
+        orderBy(sortBy, "desc")
+      );
+      snapshot = await getDocs(orderedQuery);
+    } catch (indexError) {
+      // Fallback: query without orderBy (no composite index needed)
+      console.warn("Index not ready, using fallback query:", indexError.message);
+      const fallbackQuery = query(notesRef, where("userId", "==", userId));
+      snapshot = await getDocs(fallbackQuery);
+    }
+
     let notes = snapshot.docs.map((d) => ({
       id: d.id,
       ...d.data(),
@@ -60,6 +70,9 @@ export async function fetchNotes(userId, { searchQuery = "", filterTag = "", sor
       createdAt: d.data().createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
       updatedAt: d.data().updatedAt?.toDate?.()?.toISOString() || new Date().toISOString(),
     }));
+
+    // Client-side sort (always apply to guarantee correct order)
+    notes.sort((a, b) => new Date(b[sortBy]) - new Date(a[sortBy]));
 
     // Client-side filtering — simpler than complex Firestore queries
     if (filterTag) {

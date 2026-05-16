@@ -643,6 +643,296 @@ body {
   opacity: 0.7;
 }
 
+/* ─── Search Bar ─── */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  transition: all 200ms ease;
+  overflow: hidden;
+}
+.search-wrapper:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 14px;
+  color: var(--color-text-light);
+  flex-shrink: 0;
+  transition: color 200ms ease;
+}
+.search-wrapper:focus-within .search-icon {
+  color: var(--color-primary);
+}
+.search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  outline: none;
+  font-family: inherit;
+}
+.search-input::placeholder {
+  color: var(--color-text-light);
+  opacity: 0.7;
+}
+.search-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-light);
+  transition: color 200ms ease;
+}
+.search-clear:hover {
+  color: var(--color-text);
+}
+
+/* ─── Editor Toolbar ─── */
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border);
+  border-bottom: none;
+  border-radius: 14px 14px 0 0;
+  background: var(--color-surface);
+}
+.editor-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 150ms ease;
+  flex-shrink: 0;
+}
+.editor-toolbar-btn:hover {
+  background: var(--color-border-light);
+  color: var(--color-text);
+}
+.editor-toolbar-btn:active {
+  transform: scale(0.93);
+}
+.editor-toolbar-btn--active {
+  background: rgba(13, 148, 136, 0.12);
+  color: var(--color-primary);
+}
+.editor-toolbar-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--color-border);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+.editor-toolbar-spacer {
+  flex: 1;
+}
+
+/* ─── Editor Textarea ─── */
+.editor-textarea {
+  width: 100%;
+  min-height: calc(100vh - 340px);
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.8;
+  outline: none;
+  resize: vertical;
+  transition: border-color 200ms ease;
+}
+.editor-textarea:focus {
+  border-color: var(--color-primary);
+}
+.editor-textarea::placeholder {
+  color: var(--color-text-light);
+  opacity: 0.6;
+}
+
+/* Preview card when toolbar is shown */
+.editor-preview {
+  width: 100%;
+  min-height: calc(100vh - 340px);
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+/* ─── Image Insert Popover ─── */
+.image-popover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  z-index: 40;
+  width: 340px;
+  animation: slideUp 150ms ease;
+}
+.image-popover-field {
+  margin-bottom: 12px;
+}
+.image-popover-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+.image-popover-field input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  outline: none;
+  font-family: inherit;
+}
+.image-popover-field input:focus {
+  border-color: var(--color-primary);
+}
+
+/* ─── Keyboard Shortcuts Modal ─── */
+.shortcuts-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 150ms ease;
+}
+.shortcuts-modal {
+  background: var(--color-surface);
+  border-radius: 20px;
+  box-shadow: var(--shadow-xl);
+  max-width: 620px;
+  width: 92%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 200ms ease;
+}
+.shortcuts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+.shortcuts-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.shortcuts-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+.shortcuts-body {
+  padding: 16px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+.shortcuts-group {
+  margin-bottom: 20px;
+}
+.shortcuts-group:last-child {
+  margin-bottom: 0;
+}
+.shortcuts-group-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+  margin: 0 0 8px;
+}
+.shortcuts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+.shortcut-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+.shortcut-keys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 7px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.kbd-plus {
+  font-size: 0.7rem;
+  color: var(--color-text-light);
+  margin: 0 1px;
+}
+.shortcuts-footer {
+  padding: 12px 24px 16px;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
 /* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
