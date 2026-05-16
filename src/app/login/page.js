@@ -4,13 +4,25 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
-import { FileText, Mail, Lock, ArrowRight, AlertCircle } from "lucide-react";
+import {
+  FileText,
+  Mail,
+  Lock,
+  ArrowRight,
+  AlertCircle,
+  Eye,
+  EyeOff,
+  Sparkles,
+} from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailFocused, setEmailFocused] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
   const { login, user } = useAuth();
   const router = useRouter();
 
@@ -35,73 +47,60 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4"
-      style={{ background: "var(--color-bg)" }}
-    >
-      <div className="w-full max-w-md animate-slide-up">
+    <div className="auth-page">
+      {/* Ambient background */}
+      <div className="auth-bg">
+        <div className="auth-bg-orb auth-bg-orb--1" />
+        <div className="auth-bg-orb auth-bg-orb--2" />
+        <div className="auth-bg-orb auth-bg-orb--3" />
+      </div>
+
+      <div className="auth-container animate-slide-up">
         {/* Logo */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 no-underline">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "var(--color-primary)" }}
-            >
-              <FileText className="w-6 h-6 text-white" />
+        <div className="auth-header">
+          <Link href="/" className="auth-logo">
+            <div className="auth-logo-icon">
+              <FileText className="w-5 h-5 text-white" />
             </div>
-            <span
-              className="text-2xl font-bold"
-              style={{ color: "var(--color-text)" }}
-            >
-              Peblo
-            </span>
+            <span className="auth-logo-text">Peblo</span>
           </Link>
-          <h1
-            className="text-2xl font-bold mt-6 mb-2"
-            style={{ color: "var(--color-text)" }}
-          >
-            Welcome back
-          </h1>
-          <p style={{ color: "var(--color-text-muted)" }}>
+          <h1 className="auth-title">Welcome back</h1>
+          <p className="auth-subtitle">
             Log in to your workspace
           </p>
         </div>
 
-        {/* Form */}
-        <div className="card p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Form Card */}
+        <div className="auth-card">
+          <form onSubmit={handleSubmit}>
             {error && (
-              <div
-                className="flex items-center gap-2 p-3 rounded-lg text-sm"
-                style={{
-                  background: "rgba(239, 68, 68, 0.1)",
-                  color: "var(--color-danger)",
-                }}
-              >
+              <div className="auth-error animate-fade-in">
                 <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                {error}
+                <span>{error}</span>
               </div>
             )}
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--color-text)" }}
-              >
-                Email
+            {/* Email */}
+            <div className="auth-field">
+              <label htmlFor="email" className="auth-label">
+                Email address
               </label>
-              <div className="relative">
-                <Mail
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
-                  style={{ color: "var(--color-text-light)" }}
-                />
+              <div
+                className={`auth-input-wrapper ${
+                  emailFocused ? "auth-input-wrapper--focused" : ""
+                } ${email ? "auth-input-wrapper--filled" : ""}`}
+              >
+                <div className="auth-input-icon">
+                  <Mail className="w-[18px] h-[18px]" />
+                </div>
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="input pl-11"
+                  onFocus={() => setEmailFocused(true)}
+                  onBlur={() => setEmailFocused(false)}
+                  className="auth-input"
                   placeholder="you@example.com"
                   required
                   autoComplete="email"
@@ -109,63 +108,85 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--color-text)" }}
-              >
+            {/* Password */}
+            <div className="auth-field">
+              <label htmlFor="password" className="auth-label">
                 Password
               </label>
-              <div className="relative">
-                <Lock
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
-                  style={{ color: "var(--color-text-light)" }}
-                />
+              <div
+                className={`auth-input-wrapper ${
+                  passwordFocused ? "auth-input-wrapper--focused" : ""
+                } ${password ? "auth-input-wrapper--filled" : ""}`}
+              >
+                <div className="auth-input-icon">
+                  <Lock className="w-[18px] h-[18px]" />
+                </div>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="input pl-11"
-                  placeholder="••••••••"
+                  onFocus={() => setPasswordFocused(true)}
+                  onBlur={() => setPasswordFocused(false)}
+                  className="auth-input"
+                  placeholder="Enter your password"
                   required
                   minLength={6}
                   autoComplete="current-password"
                 />
+                <button
+                  type="button"
+                  className="auth-input-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-[18px] h-[18px]" />
+                  ) : (
+                    <Eye className="w-[18px] h-[18px]" />
+                  )}
+                </button>
               </div>
             </div>
 
             <button
               type="submit"
-              className="btn-primary w-full justify-center"
+              className="auth-submit"
               disabled={loading}
             >
               {loading ? (
-                <span className="animate-pulse">Logging in...</span>
+                <span className="auth-submit-loading">
+                  <span className="auth-spinner" />
+                  Logging in...
+                </span>
               ) : (
                 <>
-                  Log In
+                  <span>Log In</span>
                   <ArrowRight className="w-5 h-5" />
                 </>
               )}
             </button>
           </form>
 
-          <p
-            className="text-center text-sm mt-6"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+          {/* Divider */}
+          <div className="auth-divider">
+            <span>or</span>
+          </div>
+
+          <p className="auth-footer-text">
             Don&apos;t have an account?{" "}
-            <Link
-              href="/signup"
-              className="font-semibold no-underline"
-              style={{ color: "var(--color-primary)" }}
-            >
-              Sign Up
+            <Link href="/signup" className="auth-link">
+              Create one for free
             </Link>
           </p>
         </div>
+
+        {/* Branding */}
+        <p className="auth-branding">
+          <Sparkles className="w-3.5 h-3.5" />
+          Powered by AI
+        </p>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { generateNoteSummary } from "@/lib/gemini";
+import { generateNoteSummary } from "@/lib/ai";
 
 /**
  * POST /api/notes/[id]/generate-summary
- * Calls Gemini AI to generate summary, action items, and suggested title.
+ * Calls GPT-5 Nano AI to generate summary, action items, and suggested title.
  * The Firestore update is done client-side after receiving this response.
  */
 export async function POST(request, { params }) {

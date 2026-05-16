@@ -1,9 +1,12 @@
-import { GoogleGenAI } from "@google/genai";
+import OpenAI from "openai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const client = new OpenAI({
+  baseURL: "https://models.inference.ai.azure.com",
+  apiKey: process.env.GITHUB_TOKEN,
+});
 
 /**
- * Generate AI-powered insights from note content using Gemini.
+ * Generate AI-powered insights from note content using GPT-5 Nano via GitHub Models.
  * Returns summary, action items, and suggested title.
  */
 export async function generateNoteSummary(content, title = "") {
@@ -28,13 +31,24 @@ Respond ONLY in valid JSON format with this exact structure:
 }`;
 
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
-      contents: prompt,
+    const response = await client.chat.completions.create({
+      model: "gpt-5-nano",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful note analysis assistant. Always respond with valid JSON only.",
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      temperature: 0.4,
+      max_tokens: 1024,
     });
 
-    const text = response.text.trim();
-    
+    const text = response.choices[0].message.content.trim();
+
     // Extract JSON from response (handle markdown code blocks)
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
@@ -42,7 +56,7 @@ Respond ONLY in valid JSON format with this exact structure:
     }
 
     const parsed = JSON.parse(jsonMatch[0]);
-    
+
     return {
       summary: parsed.summary || "No summary generated.",
       action_items: Array.isArray(parsed.action_items) ? parsed.action_items : [],
