@@ -1,9 +1,16 @@
 import OpenAI from "openai";
 
-const client = new OpenAI({
-  baseURL: "https://models.inference.ai.azure.com",
-  apiKey: process.env.GITHUB_TOKEN,
-});
+let _client = null;
+
+function getClient() {
+  if (!_client) {
+    _client = new OpenAI({
+      baseURL: "https://models.inference.ai.azure.com",
+      apiKey: process.env.GITHUB_TOKEN,
+    });
+  }
+  return _client;
+}
 
 /**
  * Generate AI-powered insights from note content using GPT-5 Nano via GitHub Models.
@@ -31,7 +38,7 @@ Respond ONLY in valid JSON format with this exact structure:
 }`;
 
   try {
-    const response = await client.chat.completions.create({
+    const response = await getClient().chat.completions.create({
       model: "gpt-5-nano",
       messages: [
         {
